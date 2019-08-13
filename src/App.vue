@@ -127,12 +127,14 @@ export default {
           return key === '' ? value : decodeURIComponent(value);
         });
         token = params.access_token;
+
         sessionStorage.setItem('ynab_access_token', token);
         window.location.hash = '';
       } else {
         // Otherwise try sessionStage
         token = sessionStorage.getItem('ynab_access_token');
       }
+      console.log(token);
       return token;
     },
 
