@@ -39,6 +39,7 @@
 
 <script>
 import * as ynab from 'ynab';
+import * as axios from 'axios';
 
 // Import YNAB config
 import config from './config.json';
@@ -94,20 +95,26 @@ export default {
       });
     },
 
-    // Select budget and retrieve transactions
+    // Select budget and retrieve goals
     selectBudget(id) {
       console.log('selectBudget(id) called');
       this.loading = true;
       this.error = null;
       this.budgetId = id;
-      this.transaction = [];
-      this.api.transactions.getTransactions(id).then((res) => {
-        this.transactions = res.data.transactions;
-      }).catch((err) => {
-        this.error = err.error.detail;
-      }).finally(() => {
-        this.loading = false;
-      });
+      console.log('Budget ID:' + id);
+      let token = sessionStorage.getItem('ynab_access_token');
+
+      axios.defaults.baseURL = 'https://api.youneedabudget.com/v1';
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+      axios.defaults.headers.common['Content-Type'] = 'application/json';
+
+      axios.get('/budgets/' + this.budgetId + '/categories')
+        .then((res) => {
+          console.log(res.data.data.category_groups);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     // Build URI to retrieve access token
