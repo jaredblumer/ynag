@@ -62,7 +62,8 @@ export default {
       error: null,
       budgetId: null,
       budgets: [],
-      transaction: []
+      transaction: [],
+      userId: null
     }
   },
 
@@ -72,12 +73,25 @@ export default {
     this.ynab.token = this.findYNABToken();
     if (this.ynab.token) {
       console.log('created() called');
+
+      // Config axios
+      axios.defaults.baseURL = 'https://api.youneedabudget.com/v1';
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.ynab.token;
+      axios.defaults.headers.common['Content-Type'] = 'application/json';
+
       this.api = new ynab.api(this.ynab.token);
-      if (!this.budgetId) {
-        this.getBudgets();
+
+      if (!this.userId) {
+        this.getUserId();
       } else {
-        this.selectBudget(this.budgetId);
+        this.authorizeWithYNAB();
       }
+
+      // if (!this.budgetId) {
+      //   this.getBudgets();
+      // } else {
+      //   this.selectBudget(this.budgetId);
+      // }
     }
   },
 
@@ -104,10 +118,6 @@ export default {
       console.log('Budget ID:' + id);
       let token = sessionStorage.getItem('ynab_access_token');
 
-      axios.defaults.baseURL = 'https://api.youneedabudget.com/v1';
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-      axios.defaults.headers.common['Content-Type'] = 'application/json';
-
       axios.get('/budgets/' + this.budgetId + '/categories')
         .then((res) => {
           console.log(res.data.data.category_groups);
@@ -122,6 +132,17 @@ export default {
       e.preventDefault();
       const uri = `https://app.youneedabudget.com/oauth/authorize?client_id=${this.ynab.clientId}&redirect_uri=${this.ynab.redirectUri}&response_type=token`;
       location.replace(uri);
+    },
+
+    // Get user ID
+    getUserId() {
+      axios.get('/user')
+        .then((res) => {
+          console.log("User ID: " + res.data.data.user.id);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     // Find YNAB token by looking first in location.hash then sessionStorage
@@ -141,7 +162,7 @@ export default {
         // Otherwise try sessionStage
         token = sessionStorage.getItem('ynab_access_token');
       }
-      console.log(token);
+      console.log("Bearer Token: " + token);
       return token;
     },
 
