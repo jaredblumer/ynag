@@ -20,5 +20,5 @@ yarn-error.log*
 *.sln
 *.sw?
 
-# Config file
-src/config.json
+# Config files
+src/config.js
