@@ -7,28 +7,23 @@
       <h1 v-if="loading">Loading...</h1>
 
       <!-- Display error message if one occurs -->
-      <div v-if="error">
+      <div v-else-if="error">
         <h1>Oops!</h1>
         <p>{{error}}</p>
         <button @click="resetToken">Retry</button>
       </div>
 
-      <!-- Otherwise, show app contents -->
-      <div v-else>
+      <!-- If no token, ask user to authorize -->
+      <div v-else-if="!ynab.token">
+        <h1>Authorization</h1>
+        <button @click="authorizeWithYNAB">Authorize</button>
+      </div>
 
-        <!-- If no token, ask user to authorize -->
-        <div v-if="!ynab.token">
-          <h1>Authorization</h1>
-          <button @click="authorizeWithYNAB">Authorize</button>
-        </div>
-
-        <Budgets v-else-if="!budgetId" :budgets="budgets" :selectBudget="selectBudget" />
-
-        <div v-else>
-          <Transactions :transactions="transactions" />
-          <button @click="budgetId = null">Select Another Budget</button>
-        </div>
-
+      <div v-else-if="!budgetId">
+        <Goals />
+        <!-- <button @click="budgetId = null">Select Another Budget</button> -->
+        <!-- TODO: Add Select Another Budget Button -->
+        <button @click="resetToken">Log Out</button>
       </div>
 
     <!-- <Footer /> -->
@@ -46,7 +41,7 @@ import config from './config.js';
 
 // Import components
 import Budgets from './components/Budgets.vue';
-import Transactions from './components/Transactions.vue';
+import Goals from './components/Goals.vue';
 
 export default {
   // Template data
@@ -177,7 +172,7 @@ export default {
   // Specify components available to template
   components: {
     Budgets,
-    Transactions
+    Goals
   }
 }
 </script>

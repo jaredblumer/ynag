@@ -7,7 +7,7 @@ const config = require(path.resolve( __dirname, './config.js' ) );
 
 const mongoose = require('mongoose');
 let mongoURL = 'mongodb://' + config.db.dbuser + ':' + config.db.dbpassword + '@ds263927.mlab.com:63927/ynag';
-mongoose.connect(mongoURL);
+mongoose.connect(mongoURL, { useNewUrlParser: true });
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', function(callback) {
