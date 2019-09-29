@@ -9,19 +9,19 @@
       </div>
 
       <!-- Display error message if one occurs -->
-      <div v-else-if="error">
+      <!-- <div v-else-if="error">
         <h1>Oops!</h1>
         <p>{{error}}</p>
         <button @click="resetToken">Retry</button>
-      </div>
+      </div> -->
 
       <!-- If no token, ask user to authorize -->
-      <div v-else-if="!ynab.token">
+      <div v-if="!token">
         <h1>Authorization</h1>
         <button @click="authorizeWithYNAB">Authorize</button>
       </div>
 
-      <div v-else-if="!budgetId">
+      <div v-else>
         <Goals />
         <!-- <button @click="budgetId = null">Select Another Budget</button> -->
         <!-- TODO: Add Select Another Budget Button -->
@@ -50,15 +50,19 @@ export default {
   // Template data
   data () {
     return {
-      ynab: {
-        clientId: config.ynab.clientId,
-        redirectUri: config.ynab.redirectUri,
-        token: null,
-        api: null
-      },
+      // ynab: {
+      //   clientId: config.ynab.clientId,
+      //   redirectUri: config.ynab.redirectUri,
+      //   token: null,
+      //   api: null
+      // },
+      clientId: config.ynab.clientId,
+      redirectUri: config.ynab.redirectUri,
+      token: null,
+      api: null,
       loading: false,
       error: null,
-      budgetId: null,
+      budgetId: 'default',
       budgets: [],
       transaction: [],
       userId: null
@@ -68,22 +72,23 @@ export default {
   // When this component is created, check whether we need a token or budgets
   // or display the transactions
   created() {
-    this.ynab.token = this.findYNABToken();
-    if (this.ynab.token) {
+    this.token = this.findYNABToken();
+    if (this.token) {
       console.log('created() called');
 
       // Config axios
       axios.defaults.baseURL = 'https://api.youneedabudget.com/v1';
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.ynab.token;
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
       axios.defaults.headers.common['Content-Type'] = 'application/json';
 
-      this.api = new ynab.api(this.ynab.token);
+      this.api = new ynab.api(this.token);
 
       if (!this.userId) {
         this.getUserId();
-      } else {
-        this.authorizeWithYNAB();
       }
+      // else {
+      //   this.authorizeWithYNAB();
+      // }
 
       // if (!this.budgetId) {
       //   this.getBudgets();
@@ -98,7 +103,7 @@ export default {
     // Build URI to retrieve access token
     authorizeWithYNAB(e) {
       e.preventDefault();
-      const uri = `https://app.youneedabudget.com/oauth/authorize?client_id=${this.ynab.clientId}&redirect_uri=${this.ynab.redirectUri}&response_type=token`;
+      const uri = `https://app.youneedabudget.com/oauth/authorize?client_id=${this.clientId}&redirect_uri=${this.redirectUri}&response_type=token`;
       location.replace(uri);
     },
 
@@ -123,10 +128,22 @@ export default {
       return token;
     },
 
+    // Get user ID
+    getUserId() {
+      axios.get('/user')
+        .then((res) => {
+          console.log("User ID: " + res.data.data.user.id);
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
     // Clear the token and restart authorization
     resetToken() {
       sessionStorage.removeItem('ynab_access_token');
-      this.ynab.token = null;
+      this.token = null;
       this.error = null;
     }
 
