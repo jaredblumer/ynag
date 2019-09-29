@@ -9,7 +9,9 @@
   import {utils} from 'ynab';
 
   export default {
-    props: [],
+    created: function () {
+      console.log('Goals Component Created');
+    },
     methods: {
       // Convert currency from utils
       convertMilliUnitsToCurrencyAmount: utils.convertMilliUnitsToCurrencyAmount
