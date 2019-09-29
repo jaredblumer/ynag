@@ -17,8 +17,13 @@
 
       <!-- If no token, ask user to authorize -->
       <div v-if="!token">
-        <h1>Authorization</h1>
-        <button @click="authorizeWithYNAB">Authorize</button>
+        <div class="index-header">
+          <h1>YNAG<span class="period">.</span></h1>
+          <h3>You Need A Goal - A YNAB App</h3>
+        </div>
+        <div class="button-div">
+          <button class="auth" @click="authorizeWithYNAB">Authorize with YNAB</button>
+        </div>
       </div>
 
       <div v-else>
@@ -157,3 +162,55 @@ export default {
   }
 }
 </script>
+
+<style>
+  .auth {
+    background-color: #F2783C;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 14px 14px;
+    text-align: center;
+    text-decoration: none;
+  }
+  .auth:active {
+    /* TODO: Move button down slightly on click. */
+  }
+  .auth:hover {
+    background-color: #ed580f;
+    cursor: pointer;
+  }
+  body {
+    background-color: #FFFFFF;
+    font-family: 'Work Sans', sans-serif;
+  }
+  .button-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  h1 {
+    color: #25384F;
+    font-size: 50px;
+    font-weight: 1000;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  h3 {
+    color: #85C3E9;
+    font-size: 20px;
+    font-weight: 1000;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  .index-header {
+
+  }
+  .period {
+    color: #85C3E9;
+  }
+</style>

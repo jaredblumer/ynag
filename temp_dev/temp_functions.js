@@ -28,21 +28,3 @@ selectBudget(id) {
       console.log(err);
     });
 },
-
-// Build URI to retrieve access token
-authorizeWithYNAB(e) {
-  e.preventDefault();
-  const uri = `https://app.youneedabudget.com/oauth/authorize?client_id=${this.ynab.clientId}&redirect_uri=${this.ynab.redirectUri}&response_type=token`;
-  location.replace(uri);
-},
-
-// Get user ID
-getUserId() {
-  axios.get('/user')
-    .then((res) => {
-      console.log("User ID: " + res.data.data.user.id);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-},
