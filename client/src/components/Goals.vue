@@ -15,6 +15,7 @@
   export default {
     created: function () {
       console.log('Goals Component Created');
+      this.$emit('fetchGoals', 'default');
     },
     methods: {
       // Convert currency from utils

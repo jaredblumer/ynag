@@ -12,7 +12,7 @@ getBudgets() {
 },
 
 // Select budget and retrieve goals
-selectBudget(id) {
+fetchGoals(id) {
   console.log('selectBudget(id) called');
   this.loading = true;
   this.error = null;

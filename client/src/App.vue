@@ -33,7 +33,9 @@
       </div>
 
       <div v-else>
-        <Goals @logOut="logOut" />
+        <Goals
+          @logOut="logOut"
+          @fetchGoals="fetchGoals" />
       </div>
 
     <!-- <Footer /> -->
@@ -114,6 +116,23 @@ export default {
       e.preventDefault();
       const uri = `https://app.youneedabudget.com/oauth/authorize?client_id=${this.clientId}&redirect_uri=${this.redirectUri}&response_type=token`;
       location.replace(uri);
+    },
+
+    fetchGoals(id) {
+      console.log('fetch called');
+      this.loading = true;
+      this.error = null;
+      this.budgetId = id;
+      console.log('Budget ID:' + id);
+      let token = sessionStorage.getItem('ynab_access_token');
+
+      axios.get('/budgets/' + this.budgetId + '/categories')
+        .then((res) => {
+          console.log(res.data.data.category_groups);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     // Find YNAB token by looking first in location.hash then sessionStorage
