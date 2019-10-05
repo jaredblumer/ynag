@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <h1>Goals Loaded</h1>
+    <!-- <button @click="budgetId = null">Select Another Budget</button> -->
+    <!-- TODO: Add Select Another Budget Button -->
+    <button v-on:click="$emit('logOut')">Log Out</button>
   </div>
+
 </template>
 
 <script>

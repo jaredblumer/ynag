@@ -19,7 +19,13 @@
       <div v-if="!token">
         <div class="index-header">
           <h1>YNAG<span class="period">.</span></h1>
-          <h3>You Need A Goal - A YNAB App</h3>
+          <h3>You Need A Goal - A SuccessBot App</h3>
+        </div>
+        <div class="message" v-if="loggedOut">
+          <p>You have successfully logged out.</p>
+        </div>
+        <div class="index-body">
+          <!-- TODO: Add Image and Description Text -->
         </div>
         <div class="button-div">
           <button class="auth" @click="authorizeWithYNAB">Authorize with YNAB</button>
@@ -27,10 +33,7 @@
       </div>
 
       <div v-else>
-        <Goals />
-        <!-- <button @click="budgetId = null">Select Another Budget</button> -->
-        <!-- TODO: Add Select Another Budget Button -->
-        <button @click="resetToken">Log Out</button>
+        <Goals @logOut="logOut" />
       </div>
 
     <!-- <Footer /> -->
@@ -61,14 +64,15 @@ export default {
       //   token: null,
       //   api: null
       // },
-      clientId: config.ynab.clientId,
-      redirectUri: config.ynab.redirectUri,
-      token: null,
       api: null,
-      loading: false,
-      error: null,
       budgetId: 'default',
       budgets: [],
+      clientId: config.ynab.clientId,
+      error: null,
+      loading: false,
+      loggedOut: false,
+      redirectUri: config.ynab.redirectUri,
+      token: null,
       transaction: [],
       userId: null
     }
@@ -146,10 +150,11 @@ export default {
     },
 
     // Clear the token and restart authorization
-    resetToken() {
-      sessionStorage.removeItem('ynab_access_token');
+    logOut() {
+      this.loggedOut = true;
       this.token = null;
       this.error = null;
+      sessionStorage.removeItem('ynab_access_token');
     }
 
   },
@@ -201,7 +206,7 @@ export default {
   }
   h3 {
     color: #85C3E9;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 1000;
     margin: 0;
     padding: 0;
@@ -209,6 +214,9 @@ export default {
   }
   .index-header {
 
+  }
+  .message {
+    text-align: center;
   }
   .period {
     color: #85C3E9;

@@ -5,6 +5,13 @@
 </template>
 
 <script>
+
+  export default {
+    created: function () {
+      console.log('Loading Component Created');
+    }
+  }
+
 </script>
 
 <style>
