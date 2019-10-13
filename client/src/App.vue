@@ -129,6 +129,8 @@ export default {
       axios.get('/budgets/' + this.budgetId + '/categories')
         .then((res) => {
           console.log(res.data.data.category_groups);
+          this.loading = false;
+          this.parseGoals(res.data.data.category_groups);
         })
         .catch((err) => {
           console.log(err);
@@ -166,6 +168,27 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+
+    // Parse fetched categories and create new goals object
+    parseGoals(data) {
+      let goals = [];
+
+      for (let i = 1; i < data.length; i++) {
+        let categoryGroup = data[i].categories;
+
+        for (let j = 0; j < categoryGroup.length; j++) {
+          let category = categoryGroup[j];
+
+          if (!category.deleted && !category.hidden && category.goal_type == ("TBD")) {
+            goals.push(category);
+          }
+        }
+
+      };
+
+      console.log(goals);
+
     },
 
     // Clear the token and restart authorization
