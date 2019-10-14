@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <div v-else>
+      <div class="goals-parent" v-else>
         <Goals
           @logOut="logOut"
           @fetchGoals="fetchGoals" />
@@ -211,6 +211,19 @@ export default {
 </script>
 
 <style>
+
+  html {
+    height: 100vh;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  #app {
+    height: 100vh;
+  }
+
   .auth {
     background-color: #F2783C;
     border: none;
@@ -237,6 +250,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .container {
+    height: 100%;
+  }
+  .goals-parent {
+    height: 100%;
   }
   h1 {
     color: #25384F;
