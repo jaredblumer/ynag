@@ -3,9 +3,9 @@
 
     <div class="container">
 
-      <!-- Display loading message if loading -->
-      <div v-if="loading">
-        <Loading />
+      <!-- Display loading message if loading goals -->
+      <div v-if="loadGoals">
+        <LoadGoals @loadGoalsComponent="loadGoalsComponent" />
       </div>
 
       <!-- Display error message if one occurs -->
@@ -34,8 +34,7 @@
 
       <div class="goals-parent" v-else>
         <Goals
-          @logOut="logOut"
-          @fetchGoals="fetchGoals" />
+          @logOut="logOut" />
       </div>
 
     <!-- <Footer /> -->
@@ -54,7 +53,7 @@ import config from './config.js';
 // Import components
 import Budgets from './components/Budgets.vue';
 import Goals from './components/Goals.vue';
-import Loading from './components/Loading.vue';
+import LoadGoals from './components/LoadGoals.vue';
 
 export default {
   // Template data
@@ -71,7 +70,8 @@ export default {
       budgets: [],
       clientId: config.ynab.clientId,
       error: null,
-      loading: false,
+      goals: [],
+      loadGoals: false,
       loggedOut: false,
       redirectUri: config.ynab.redirectUri,
       token: null,
@@ -85,7 +85,6 @@ export default {
   created() {
     this.token = this.findYNABToken();
     if (this.token) {
-      console.log('created() called');
 
       // Config axios
       axios.defaults.baseURL = 'https://api.youneedabudget.com/v1';
@@ -94,18 +93,9 @@ export default {
 
       this.api = new ynab.api(this.token);
 
-      if (!this.userId) {
-        this.getUserId();
-      }
-      // else {
-      //   this.authorizeWithYNAB();
-      // }
+      this.loadGoals = true;
+      console.log("this.loadGoals: " + this.loadGoals);
 
-      // if (!this.budgetId) {
-      //   this.getBudgets();
-      // } else {
-      //   this.selectBudget(this.budgetId);
-      // }
     }
   },
 
@@ -120,7 +110,6 @@ export default {
 
     fetchGoals(id) {
       console.log('fetch called');
-      this.loading = true;
       this.error = null;
       this.budgetId = id;
       console.log('Budget ID:' + id);
@@ -129,7 +118,6 @@ export default {
       axios.get('/budgets/' + this.budgetId + '/categories')
         .then((res) => {
           console.log(res.data.data.category_groups);
-          this.loading = false;
           this.parseGoals(res.data.data.category_groups);
         })
         .catch((err) => {
@@ -139,6 +127,7 @@ export default {
 
     // Find YNAB token by looking first in location.hash then sessionStorage
     findYNABToken() {
+      console.log("findYNABToken() called.");
       let token = null;
       const search = window.location.hash.substring(1).replace(/&/g, '","').replace(/=/g,'":"');
       if (search && search !== '') {
@@ -160,19 +149,27 @@ export default {
 
     // Get user ID
     getUserId() {
+      console.log("getUserID() called");
       axios.get('/user')
         .then((res) => {
           console.log("User ID: " + res.data.data.user.id);
-
+          this.userId = res.data.data.user.id
         })
         .catch((err) => {
           console.log(err);
         });
     },
 
+    // Run goals methods when LoadGoals component is created
+    loadGoalsComponent() {
+      console.log("loadGoalsComponent() called.")
+      this.getUserId();
+    },
+
     // Parse fetched categories and create new goals object
     parseGoals(data) {
-      let goals = [];
+      console.log("parseGoals() called.")
+      let tempGoalsArr = [];
 
       for (let i = 1; i < data.length; i++) {
         let categoryGroup = data[i].categories;
@@ -181,18 +178,21 @@ export default {
           let category = categoryGroup[j];
 
           if (!category.deleted && !category.hidden && category.goal_type == ("TBD")) {
-            goals.push(category);
+            tempGoalsArr.push(category);
           }
         }
 
       };
 
-      console.log(goals);
+      console.log(tempGoalsArr);
+      this.goals = tempGoalsArr;
+      this.loadGoals = false;
 
     },
 
     // Clear the token and restart authorization
     logOut() {
+      console.log("logOut() called.");
       this.loggedOut = true;
       this.token = null;
       this.error = null;
@@ -205,7 +205,7 @@ export default {
   components: {
     Budgets,
     Goals,
-    Loading
+    LoadGoals
   }
 }
 </script>

@@ -8,7 +8,8 @@
 
   export default {
     created: function () {
-      console.log('Loading Component Created');
+      console.log('LoadGoals Component Created');
+      this.$emit('loadGoalsComponent');
     }
   }
 

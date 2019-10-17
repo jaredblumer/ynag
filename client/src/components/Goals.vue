@@ -20,10 +20,7 @@
   import {utils} from 'ynab';
 
   export default {
-    created: function () {
-      console.log('Goals Component Created');
-      this.$emit('fetchGoals', 'default');
-    },
+
     methods: {
       // Convert currency from utils
       convertMilliUnitsToCurrencyAmount: utils.convertMilliUnitsToCurrencyAmount
