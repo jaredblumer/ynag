@@ -111,14 +111,14 @@ export default {
     fetchGoals(id) {
       console.log('fetch called');
       this.error = null;
-      this.budgetId = id;
+      this.budgetId = "default";
       console.log('Budget ID:' + id);
       let token = sessionStorage.getItem('ynab_access_token');
 
-      axios.get('/budgets/' + this.budgetId + '/categories')
+      return axios.get('/budgets/' + this.budgetId + '/categories')
         .then((res) => {
           console.log(res.data.data.category_groups);
-          this.parseGoals(res.data.data.category_groups);
+          return res.data.data.category_groups;
         })
         .catch((err) => {
           console.log(err);
@@ -150,10 +150,11 @@ export default {
     // Get user ID
     getUserId() {
       console.log("getUserID() called");
-      axios.get('/user')
+      return axios.get('/user')
         .then((res) => {
           console.log("User ID: " + res.data.data.user.id);
-          this.userId = res.data.data.user.id
+          this.userId = res.data.data.user.id;
+          return res.data.data.user.id;
         })
         .catch((err) => {
           console.log(err);
@@ -163,7 +164,13 @@ export default {
     // Run goals methods when LoadGoals component is created
     loadGoalsComponent() {
       console.log("loadGoalsComponent() called.")
-      this.getUserId();
+      this.getUserId()
+      .then(id => {
+        return this.fetchGoals(id);
+      })
+      .then(data => {
+        return this.parseGoals(data);
+      });
     },
 
     // Parse fetched categories and create new goals object
