@@ -34,6 +34,7 @@
 
       <div class="goals-parent" v-else>
         <Goals
+          :goals="goals"
           @logOut="logOut" />
       </div>
 
@@ -203,6 +204,7 @@ export default {
       this.loggedOut = true;
       this.token = null;
       this.error = null;
+      this.goals = [];
       sessionStorage.removeItem('ynab_access_token');
     }
 

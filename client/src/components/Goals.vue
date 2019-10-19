@@ -9,6 +9,13 @@
 
     <div class="goals-body">
       <h2>Goals</h2>
+
+      <div v-for="goal in goals">
+        <h3>{{ goal.name }}</h3>
+        <p><strong>{{ goal.goal_percentage_complete }}%</strong></p>
+        <p>{{ goal.balance }} | {{ goal.goal_target }}</p>
+      </div>
+
     </div>
 
   </div>
@@ -20,7 +27,9 @@
   import {utils} from 'ynab';
 
   export default {
-
+    props: [
+      'goals'
+    ],
     methods: {
       // Convert currency from utils
       convertMilliUnitsToCurrencyAmount: utils.convertMilliUnitsToCurrencyAmount
