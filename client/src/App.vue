@@ -109,6 +109,15 @@ export default {
       location.replace(uri);
     },
 
+    convertMilliUnitsToCurrency(goalsObj) {
+      for (let key in goalsObj) {
+        if (key.match(/^(activity|balance|budgeted|goal_target)$/)) {
+          goalsObj[key] = ynab.utils.convertMilliUnitsToCurrencyAmount(goalsObj[key], 2);
+        }
+      }
+      return goalsObj;
+    },
+
     fetchGoals(id) {
       console.log('fetch called');
       this.error = null;
@@ -124,6 +133,32 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+
+    // Filter fetched goals to include only Target Category Balance by Date
+    filterGoals(data) {
+      console.log("filterGoals() called.")
+      let tempGoalsArr = [];
+
+      for (let i = 1; i < data.length; i++) {
+        let categoryGroup = data[i].categories;
+
+        for (let j = 0; j < categoryGroup.length; j++) {
+          let category = categoryGroup[j];
+
+          if (!category.deleted && !category.hidden && category.goal_type == ("TBD")) {
+            tempGoalsArr.push(category);
+          }
+        }
+
+      };
+
+      tempGoalsArr = tempGoalsArr.map((goalsObj) => this.convertMilliUnitsToCurrency(goalsObj));
+
+      console.log(tempGoalsArr);
+      this.goals = tempGoalsArr;
+      this.loadGoals = false;
+
     },
 
     // Find YNAB token by looking first in location.hash then sessionStorage
@@ -170,32 +205,8 @@ export default {
         return this.fetchGoals(id);
       })
       .then(data => {
-        return this.parseGoals(data);
+        return this.filterGoals(data);
       });
-    },
-
-    // Parse fetched categories and create new goals object
-    parseGoals(data) {
-      console.log("parseGoals() called.")
-      let tempGoalsArr = [];
-
-      for (let i = 1; i < data.length; i++) {
-        let categoryGroup = data[i].categories;
-
-        for (let j = 0; j < categoryGroup.length; j++) {
-          let category = categoryGroup[j];
-
-          if (!category.deleted && !category.hidden && category.goal_type == ("TBD")) {
-            tempGoalsArr.push(category);
-          }
-        }
-
-      };
-
-      console.log(tempGoalsArr);
-      this.goals = tempGoalsArr;
-      this.loadGoals = false;
-
     },
 
     // Clear the token and restart authorization

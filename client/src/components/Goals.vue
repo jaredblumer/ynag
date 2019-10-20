@@ -23,17 +23,11 @@
 </template>
 
 <script>
-  // Import utils from YNAB
-  import {utils} from 'ynab';
 
   export default {
     props: [
       'goals'
-    ],
-    methods: {
-      // Convert currency from utils
-      convertMilliUnitsToCurrencyAmount: utils.convertMilliUnitsToCurrencyAmount
-    }
+    ]
   }
 </script>
 
