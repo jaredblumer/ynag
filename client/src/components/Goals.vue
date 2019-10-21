@@ -10,7 +10,7 @@
     <div class="goals-body">
       <h2>Goals</h2>
 
-      <div v-for="goal in goals">
+      <div v-for="goal in goals" v-bind:key="goal.id" class="goal-div">
         <h3>{{ goal.name }}</h3>
         <p><strong>{{ goal.goal_percentage_complete }}%</strong></p>
         <p>{{ goal.balance }} | {{ goal.goal_target }}</p>
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-
   export default {
     props: [
       'goals'
@@ -33,24 +32,35 @@
 
 <style>
 
-.goals-body {
+.goal-div {
   border: 2px solid black;
-  height: 100vh;
+  width: 700px;
+}
+
+.goals-body {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
   flex: 1;
+  flex-direction: column;
 }
 
 .goals-container {
-  display: -ms-flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
   display: -webkit-flex;
-  display: flex;
   flex-direction: row;
-  height: 100vh;
 }
 
 .goals-menu-container {
   border: 2px solid green;
   flex: 0 0 300px;
-  height: 100vh;
 }
 
 </style>

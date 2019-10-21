@@ -32,11 +32,9 @@
         </div>
       </div>
 
-      <div class="goals-parent" v-else>
-        <Goals
+      <Goals v-else
           :goals="goals"
           @logOut="logOut" />
-      </div>
 
     <!-- <Footer /> -->
 
@@ -231,14 +229,6 @@ export default {
 </script>
 
 <style>
-
-  html {
-    height: 100vh;
-  }
-
-  body {
-    min-height: 100vh;
-  }
 
   #app {
     height: 100vh;
