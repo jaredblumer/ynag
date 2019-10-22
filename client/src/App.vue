@@ -255,6 +255,7 @@ export default {
   body {
     background-color: #FFFFFF;
     font-family: 'Work Sans', sans-serif;
+    margin: 0;
   }
   .button-div {
     display: flex;

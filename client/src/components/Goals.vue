@@ -8,18 +8,38 @@
     </div>
 
     <div class="goals-body">
-      <h2>Goals</h2>
-
       <div v-for="goal in goals" v-bind:key="goal.id" class="goal-div">
         <h3>{{ goal.name }}</h3>
-        <p><strong>{{ goal.goal_percentage_complete }}%</strong></p>
-        <p>{{ goal.balance }} | {{ goal.goal_target }}</p>
+        <div class="goal-progress-container-left">
+          <div>
+            <span class="label">SAVED</span>
+            <br>
+            <span class="figure">{{ goal.balance }}</span>
+          </div>
+          <div>
+            <span class="label">THIS MONTH</span>
+            <br>
+            <span class="figure">{{ goal.budgeted }}</span>
+          </div>
+        </div>
+
+        <div class="goal-progress-container-center">
+          <p><strong>{{ goal.goal_percentage_complete }}%</strong></p>
+        </div>
+
+        <div class="goal-progress-container-right">
+          <span class="label">GOAL</span>
+          <br>
+          <span class="figure">{{ goal.goal_target }}</span>
+          <div>
+            <span class="label">AVERAGE</span>
+            <br>
+            <span class="figure">...</span>
+          </div>
+        </div>
       </div>
-
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -34,6 +54,8 @@
 
 .goal-div {
   border: 2px solid black;
+  border-radius: 20px;
+  margin: 8px;
   width: 700px;
 }
 
@@ -45,7 +67,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid black;
   flex: 1;
   flex-direction: column;
 }
