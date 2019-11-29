@@ -230,7 +230,14 @@ export default {
 
 <style>
 
-  #app {
+  body {
+    background-color:#FEDBD0;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* #app {
     height: 100vh;
   }
 
@@ -244,9 +251,6 @@ export default {
     padding: 14px 14px;
     text-align: center;
     text-decoration: none;
-  }
-  .auth:active {
-    /* TODO: Move button down slightly on click. */
   }
   .auth:hover {
     background-color: #ed580f;
@@ -292,5 +296,6 @@ export default {
   }
   .period {
     color: #85C3E9;
-  }
+  } */
+
 </style>
