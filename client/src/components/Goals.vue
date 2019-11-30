@@ -10,37 +10,39 @@
 
     <div class="goals-body">
 
-      <div class="goal-progress-container">
-        <h3>Category Name</h3>
+      <div class="goal-progress-container" v-for="goal in goals" v-bind:key="goal.id">
+        <h3>{{ goal.name }}</h3>
         <div class="progress-container">
           <div class="progress">
-            <div class="progress-bar" style="width:40%"></div>
+            <div class="progress-bar" v-bind:style="{ width: goal.goal_percentage_complete + '%'}"></div>
           </div>
           <div class="progress-percentage-div">
-            <span class="percentage">40%</span>
+            <span class="percentage">{{ goal.goal_percentage_complete }}%</span>
           </div>
         </div>
-        <div class="drop-down-container">
+        <!-- <div class="drop-down-container">
           <i class="material-icons">unfold_more</i>
-        </div>
+        </div> -->
         <div class="details-container">
-          <div class="detail-div">
-            <h4>Saved</h4>
-            <span>$100</span>
+          <div class="details-row-container">
+            <div class="detail-div">
+              <h4>Saved</h4>
+              <span>$ {{ goal.balance }}</span>
+            </div>
+            <div class="detail-div">
+              <h4>This Month</h4>
+              <span>$ {{ goal.budgeted }}</span>
+            </div>
           </div>
-          <div class="detail-div">
-            <h4>This Month</h4>
-            <span>$50</span>
-          </div>
-        </div>
-        <div class="details-container">
-          <div class="detail-div">
-            <h4>Goal</h4>
-            <span>$2000</span>
-          </div>
-          <div class="detail-div">
-            <h4>Est. Completed</h4>
-            <span>February 2020</span>
+          <div class="details-row-container">
+            <div class="detail-div">
+              <h4>Goal</h4>
+              <span>$ {{ goal.goal_target }}</span>
+            </div>
+            <div class="detail-div">
+              <h4>Est. Completed</h4>
+              <span>TO-DO</span>
+            </div>
           </div>
         </div>
       </div>
@@ -94,7 +96,7 @@
 
 <style>
 
-.details-container {
+.details-row-container {
   align-content: space-between;
   display: flex;
   flex-direction: row;
