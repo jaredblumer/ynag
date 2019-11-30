@@ -20,6 +20,29 @@
             <span class="percentage">40%</span>
           </div>
         </div>
+        <div class="drop-down-container">
+          <i class="material-icons">unfold_more</i>
+        </div>
+        <div class="details-container">
+          <div class="detail-div">
+            <h4>Saved</h4>
+            <span>$100</span>
+          </div>
+          <div class="detail-div">
+            <h4>This Month</h4>
+            <span>$50</span>
+          </div>
+        </div>
+        <div class="details-container">
+          <div class="detail-div">
+            <h4>Goal</h4>
+            <span>$2000</span>
+          </div>
+          <div class="detail-div">
+            <h4>Est. Completed</h4>
+            <span>February 2020</span>
+          </div>
+        </div>
       </div>
 
 
@@ -71,6 +94,34 @@
 
 <style>
 
+.details-container {
+  align-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+
+.detail-div {
+  border-radius: 0.25rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  margin: 2px;
+  padding: 16px;
+  text-align: center;
+  width: calc(50% - 8px);
+}
+
+.detail-div h4 {
+  font-weight: 400;
+  font-size: 12px;
+  margin: 0 0 2px 0;
+  padding: 0;
+}
+
+.drop-down-container {
+  text-align: center;
+}
+
 .goals-container {
   padding: 16px;
 }
@@ -96,7 +147,8 @@
 }
 
 .goal-progress-container h3 {
-  color: #2c2f3d;
+  color: #442C2E;
+  font-size: 26px;
   margin: 0;
   padding: 0;
 }
@@ -110,9 +162,15 @@
   padding: 16px;
 }
 
+.material-icons {
+  color: #442C2E;
+  font-size: 32px;
+}
+
 .percentage {
-  color: #2c2f3d;
-  font-size: 16px;
+  color: #442C2E;
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
   font-weight: 600;
   margin-left: 8px;
 }
@@ -125,8 +183,8 @@
 }
 
 .progress-bar {
-  background-color: #939ECC;
-  border-right: 2px solid #2c2f3d;
+  background-color: #666e8e;
+  border-right: 1px solid #2c2f3d;
   height: 20px;
 }
 
