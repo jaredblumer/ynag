@@ -1,93 +1,116 @@
 <template>
-  <div class="goals-container">
-    <!-- <button @click="budgetId = null">Select Another Budget</button> -->
-    <!-- TODO: Add Select Another Budget Button -->
+  <div>
 
-    <div class="goals-header">
-      <h1>YNAG</h1>
-      <h2>You Need a Goal</h2>
-    </div>
+    <nav id="nav">
+      <ul>
+        <a href="#" v-on:click="$emit('logOut')"><li>Log Out</li></a>
+      </ul>
+    </nav>
 
-    <div class="goals-body">
+    <div class="goals-container">
+      <!-- <button @click="budgetId = null">Select Another Budget</button> -->
+      <!-- TODO: Add Select Another Budget Button -->
 
-      <div class="goal-progress-container" v-for="goal in goals" v-bind:key="goal.id">
-        <h3>{{ goal.name }}</h3>
-        <div class="progress-container">
-          <div class="progress">
-            <div class="progress-bar" v-bind:style="{ width: goal.goal_percentage_complete + '%'}"></div>
-          </div>
-          <div class="progress-percentage-div">
-            <span class="percentage">{{ goal.goal_percentage_complete }}%</span>
-          </div>
+      <div class="goals-header">
+        <div>
+          <h1>YNAG</h1>
+          <h2>You Need a Goal</h2>
         </div>
-        <!-- <div class="drop-down-container">
-          <i class="material-icons">unfold_more</i>
-        </div> -->
-        <div class="details-container">
-          <div class="details-row-container">
-            <div class="detail-div">
-              <h4>Saved</h4>
-              <span>$ {{ goal.balance }}</span>
-            </div>
-            <div class="detail-div">
-              <h4>This Month</h4>
-              <span>$ {{ goal.budgeted }}</span>
-            </div>
-          </div>
-          <div class="details-row-container">
-            <div class="detail-div">
-              <h4>Goal</h4>
-              <span>$ {{ goal.goal_target }}</span>
-            </div>
-            <div class="detail-div">
-              <h4>Est. Completed</h4>
-              <span>TO-DO</span>
-            </div>
-          </div>
+        <div class="drop-down">
+          <a href="#"><i class="material-icons" id="drop-down-arrow">keyboard_arrow_down</i></a>
         </div>
       </div>
 
+      <div class="goals-body">
 
-      <!-- <div v-for="goal in goals" v-bind:key="goal.id" class="goal-div">
-        <h3>{{ goal.name }}</h3>
-          <div class="goal-progress-container">
-
-          <div class="goal-progress-container-left">
-            <div>
-              <span class="label">SAVED</span>
-              <br>
-              <span class="figure">{{ goal.balance }}</span>
+        <div class="goal-progress-container" v-for="goal in goals" v-bind:key="goal.id">
+          <h3>{{ goal.name }}</h3>
+          <div class="progress-container">
+            <div class="progress">
+              <div class="progress-bar" v-bind:style="{ width: goal.goal_percentage_complete + '%'}"></div>
             </div>
-            <div>
-              <span class="label">THIS MONTH</span>
-              <br>
-              <span class="figure">{{ goal.budgeted }}</span>
+            <div class="progress-percentage-div">
+              <span class="percentage">{{ goal.goal_percentage_complete }}%</span>
             </div>
           </div>
-
-          <div class="goal-progress-container-center">
-            <p><strong>{{ goal.goal_percentage_complete }}%</strong></p>
-          </div>
-
-          <div class="goal-progress-container-right">
-            <span class="label">GOAL</span>
-            <br>
-            <span class="figure">{{ goal.goal_target }}</span>
-            <div>
-              <span class="label">AVERAGE</span>
-              <br>
-              <span class="figure">...</span>
+          <!-- <div class="drop-down-container">
+            <i class="material-icons">unfold_more</i>
+          </div> -->
+          <div class="details-container">
+            <div class="details-row-container">
+              <div class="detail-div">
+                <h4>Saved</h4>
+                <span>$ {{ goal.balance }}</span>
+              </div>
+              <div class="detail-div">
+                <h4>This Month</h4>
+                <span>$ {{ goal.budgeted }}</span>
+              </div>
+            </div>
+            <div class="details-row-container">
+              <div class="detail-div">
+                <h4>Goal</h4>
+                <span>$ {{ goal.goal_target }}</span>
+              </div>
+              <div class="detail-div">
+                <h4>Est. Completed</h4>
+                <span>TO-DO</span>
+              </div>
             </div>
           </div>
         </div>
-      </div> -->
+
+
+        <!-- <div v-for="goal in goals" v-bind:key="goal.id" class="goal-div">
+          <h3>{{ goal.name }}</h3>
+            <div class="goal-progress-container">
+
+            <div class="goal-progress-container-left">
+              <div>
+                <span class="label">SAVED</span>
+                <br>
+                <span class="figure">{{ goal.balance }}</span>
+              </div>
+              <div>
+                <span class="label">THIS MONTH</span>
+                <br>
+                <span class="figure">{{ goal.budgeted }}</span>
+              </div>
+            </div>
+
+            <div class="goal-progress-container-center">
+              <p><strong>{{ goal.goal_percentage_complete }}%</strong></p>
+            </div>
+
+            <div class="goal-progress-container-right">
+              <span class="label">GOAL</span>
+              <br>
+              <span class="figure">{{ goal.goal_target }}</span>
+              <div>
+                <span class="label">AVERAGE</span>
+                <br>
+                <span class="figure">...</span>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
     </div>
-    <button v-on:click="$emit('logOut')">Log Out</button>
   </div>
 </template>
 
 <script>
   export default {
+    mounted() {
+      let menu = document.getElementById("drop-down-arrow");
+      let nav = document.getElementById("nav");
+      menu.addEventListener("click", dropDown);
+      function dropDown() {
+        console.log("dropdown works");
+        nav.classList.add("visible");
+      }
+    },
+
     props: [
       'goals'
     ]
@@ -120,12 +143,27 @@
   padding: 0;
 }
 
+.drop-down {
+  margin: 8px 0 0 0;
+}
+
+#drop-down-arrow {
+  color: #442C2E;
+  font-size: 30px;
+}
+
 .drop-down-container {
   text-align: center;
 }
 
 .goals-container {
   padding: 16px;
+}
+
+.goals-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .goals-header h1 {
@@ -164,10 +202,41 @@
   padding: 16px;
 }
 
-.material-icons {
-  color: #442C2E;
-  font-size: 32px;
+nav {
+  background-color: #666e8e;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  transition: all 0.5s;
 }
+
+nav a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.5s ease
+}
+
+nav a:hover {
+  color: #FFC4D0;
+}
+
+nav li {
+  padding: 16px 0 16px 0;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+}
+
+/* .visible {
+  transform: translateY(100%);
+} */
 
 .percentage {
   color: #442C2E;
