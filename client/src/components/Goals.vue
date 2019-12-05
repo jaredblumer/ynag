@@ -17,7 +17,7 @@
           <h2>You Need a Goal</h2>
         </div>
         <div class="drop-down">
-          <a href="#"><i class="material-icons" id="drop-down-arrow">keyboard_arrow_down</i></a>
+          <i class="material-icons" id="drop-down-arrow">keyboard_arrow_down</i>
         </div>
       </div>
 
@@ -102,12 +102,13 @@
 <script>
   export default {
     mounted() {
-      let menu = document.getElementById("drop-down-arrow");
+      let dropDownArrow = document.getElementById("drop-down-arrow");
       let nav = document.getElementById("nav");
-      menu.addEventListener("click", dropDown);
+      dropDownArrow.addEventListener("click", dropDown);
       function dropDown() {
-        console.log("dropdown works");
-        nav.classList.add("visible");
+        // if ()
+        dropDownArrow.classList.toggle("rotated");
+        nav.classList.toggle("visible");
       }
     },
 
@@ -149,7 +150,9 @@
 
 #drop-down-arrow {
   color: #442C2E;
+  cursor: pointer;
   font-size: 30px;
+  transition: all ease 0.4s;
 }
 
 .drop-down-container {
@@ -208,7 +211,7 @@ nav {
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
   font-weight: 600;
-  margin: 0;
+  margin: -53px 0 0 0;
   position: relative;
   text-align: center;
   text-transform: uppercase;
@@ -218,25 +221,26 @@ nav {
 nav a {
   color: white;
   text-decoration: none;
-  transition: color 0.5s ease
-}
-
-nav a:hover {
-  color: #FFC4D0;
 }
 
 nav li {
   padding: 16px 0 16px 0;
+  transition: background-color 0.5s ease;
+}
+
+nav li:hover {
+  background-color: #4e567d;
 }
 
 nav ul {
   list-style: none;
   margin: 0;
+  padding: 0;
 }
 
-/* .visible {
-  transform: translateY(100%);
-} */
+.visible {
+  margin: 0;
+}
 
 .percentage {
   color: #442C2E;
@@ -266,6 +270,10 @@ nav ul {
 .progress-percentage-div {
   align-items: center;
   display: flex;
+}
+
+.rotated {
+  transform: rotate(180deg);
 }
 
 </style>
