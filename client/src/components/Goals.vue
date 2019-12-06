@@ -53,8 +53,8 @@
                 <span>$ {{ goal.goal_target }}</span>
               </div>
               <div class="detail-div">
-                <h4>Est. Completed</h4>
-                <span>TO-DO</span>
+                <h4>Target Month</h4>
+                <span>{{ goal.goal_target_month }}</span>
               </div>
             </div>
           </div>
@@ -106,7 +106,6 @@
       let nav = document.getElementById("nav");
       dropDownArrow.addEventListener("click", dropDown);
       function dropDown() {
-        // if ()
         dropDownArrow.classList.toggle("rotated");
         nav.classList.toggle("visible");
       }

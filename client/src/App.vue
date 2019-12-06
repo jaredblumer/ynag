@@ -107,10 +107,14 @@ export default {
       location.replace(uri);
     },
 
-    convertMilliUnitsToCurrency(goalsObj) {
+    convertKeys(goalsObj) {
       for (let key in goalsObj) {
+        // Convert milliunits to currency for appropriate keys
         if (key.match(/^(activity|balance|budgeted|goal_target)$/)) {
           goalsObj[key] = ynab.utils.convertMilliUnitsToCurrencyAmount(goalsObj[key], 2);
+        }
+        if (key === "goal_target_month") {
+          goalsObj[key] = this.formatTargetMonth(goalsObj[key]);
         }
       }
       return goalsObj;
@@ -151,7 +155,7 @@ export default {
 
       };
 
-      tempGoalsArr = tempGoalsArr.map((goalsObj) => this.convertMilliUnitsToCurrency(goalsObj));
+      tempGoalsArr = tempGoalsArr.map((goalsObj) => this.convertKeys(goalsObj));
 
       console.log(tempGoalsArr);
       this.goals = tempGoalsArr;
@@ -179,6 +183,31 @@ export default {
       }
       console.log("Bearer Token: " + token);
       return token;
+    },
+
+    formatTargetMonth(data) {
+      let monthsObj = {
+        "01": "January",
+        "02": "February",
+        "03": "March",
+        "04": "April",
+        "05": "May",
+        "06": "June",
+        "07": "July",
+        "08": "August",
+        "09": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+      };
+
+      // Split data into array and reformat
+      let splitData = data.split('-');
+      let monthNum = splitData[1];
+      let month = monthsObj[monthNum];
+      let year = splitData[0];
+      let targetDate = month + " " + year;
+      return targetDate;
     },
 
     // Get user ID
