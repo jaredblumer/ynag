@@ -166,6 +166,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin: 0 auto;
+  max-width: 632px;
 }
 
 .goals-header h1 {
@@ -183,7 +185,7 @@
   color: #442C2E;
   font-size: 12px;
   letter-spacing: 2px;
-  margin: 0 0 24px 12px;
+  margin: 0 0 8px 12px;
   padding: 0;
   text-transform: uppercase;
 }
@@ -199,7 +201,7 @@
   background-color: #FFF;
   border-radius: 0.25rem;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  margin: 16px 0;
+  margin: 16px auto;
   max-width: 600px;
   padding: 16px;
 }
