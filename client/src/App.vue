@@ -16,19 +16,37 @@
       </div> -->
 
       <!-- If no token, ask user to authorize -->
-      <div v-if="!token">
+      <div class="index-container" v-if="!token">
         <div class="index-header">
           <h1>YNAG<span class="period">.</span></h1>
-          <h3>You Need A Goal - A SuccessBot App</h3>
+          <h2>You Need A Goal</h2>
         </div>
         <div class="message" v-if="loggedOut">
           <p>You have successfully logged out.</p>
         </div>
         <div class="index-body">
-          <!-- TODO: Add Image and Description Text -->
+          <!-- <div class="index-logo"></div> -->
+          <div class="index-description">
+            <p>
+              <strong>You Need A Goal</strong> is a free and secure third-party widget which
+              provides YNAB users with a quick, detailed overview of their
+              savings goals, all in one place!
+            </p>
+            <!-- <p>
+              Login securely using YNAB below!
+            </p> -->
+          </div>
+          <div class="button-div">
+            <button class="auth" @click="authorizeWithYNAB"><span>Login
+                <!-- <i class="material-icons">security</i> -->
+              </span>
+            </button>
+          </div>
         </div>
-        <div class="button-div">
-          <button class="auth" @click="authorizeWithYNAB">Authorize with YNAB</button>
+        <div class="index-footer">
+          <span>
+            Developed by <a href="https://github.com/jaredblumer">Jared Blumer</a>
+          </span>
         </div>
       </div>
 
@@ -259,72 +277,127 @@ export default {
 
 <style>
 
+  .auth {
+    background-color: #666e8e;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    color: white;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 16px;
+    transition: all 0.5s;
+  }
+
+  .auth:hover {
+    background-color: #4e567d;
+  }
+
+  .auth span {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* .auth span i {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+  } */
+
   body {
     background-color:#FEDBD0;
+    color: black;
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
   }
 
-  /* #app {
-    height: 100vh;
-  }
-
-  .auth {
-    background-color: #F2783C;
-    border: none;
-    border-radius: 6px;
-    color: white;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 14px 14px;
-    text-align: center;
-    text-decoration: none;
-  }
-  .auth:hover {
-    background-color: #ed580f;
-    cursor: pointer;
-  }
-  body {
-    background-color: #FFFFFF;
-    font-family: 'Work Sans', sans-serif;
-    margin: 0;
-  }
   .button-div {
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: center;
   }
-  .container {
-    height: 100%;
-  }
-  .goals-parent {
-    height: 100%;
-  }
-  h1 {
-    color: #25384F;
-    font-size: 50px;
-    font-weight: 1000;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  h3 {
-    color: #85C3E9;
-    font-size: 16px;
-    font-weight: 1000;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  .index-header {
 
+  html {
+    margin: 0;
+    padding: 0;
   }
-  .message {
+
+  .index-body {
+    background-color: #FFF;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin: 16px auto 8px auto;
+    max-width: 600px;
+    padding: 16px;
+  }
+
+  .index-container {
+    margin: 10% auto 0 auto;
+    padding: 16px;
+    max-width: 600px;
+  }
+
+  .index-description {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    display: inline-block;
+    line-height: 26apx;
+  }
+
+  .index-description p {
+    letter-spacing: 0.4px;
+    margin: 0 0 16px 0;
+  }
+
+  .index-footer {
     text-align: center;
   }
-  .period {
-    color: #85C3E9;
+
+  .index-footer span {
+    color: #442C2E;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  .index-footer a {
+    color: #442C2E;
+  }
+
+
+
+  .index-header {
+    margin: 16px 0;
+  }
+
+  .index-header h1 {
+    color: #442C2E;
+    font-size: 60px;
+    font-weight: 600;
+    letter-spacing: 6px;
+    line-height: 50px;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+  }
+
+  .index-header h2 {
+    color: #442C2E;
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin: 0 0 0 18px;
+    padding: 0;
+    text-transform: uppercase;
+  }
+
+  /* .index-logo {
+    border: 1px solid black;
+    display: inline-block;
+    width: 25%;
   } */
 
 </style>
