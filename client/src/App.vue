@@ -30,7 +30,7 @@
             <p>
               <strong>You Need A Goal</strong> is a free and secure third-party widget which
               provides YNAB users with a quick, detailed overview of their
-              savings goals, all in one place!
+              savings goals, all in one place.
             </p>
             <!-- <p>
               Login securely using YNAB below!
