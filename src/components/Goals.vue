@@ -60,6 +60,12 @@
           </div>
         </div>
 
+        <footer>
+          <span><a href="#" v-on:click="$emit('logOut')">Logout</a></span>
+          <!-- <span><a href="mailto:jaredgblumer@gmail.com@subject=Bug Report">Report Bug</a></span>
+          <span><a href="mailto:jaredgblumer@gmail.com@subject=YNAG">Contact</a></span> -->
+        </footer>
+
 
         <!-- <div v-for="goal in goals" v-bind:key="goal.id" class="goal-div">
           <h3>{{ goal.name }}</h3>
@@ -152,6 +158,27 @@
   cursor: pointer;
   font-size: 30px;
   transition: all ease 0.4s;
+}
+
+footer {
+  color: #442C2E;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+footer a {
+  color: #442C2E;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #4e567d;
+}
+
+footer span {
+  margin: 0 16px;
 }
 
 .drop-down-container {
