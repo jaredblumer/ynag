@@ -62,8 +62,8 @@
 
         <footer>
           <span><a href="#" v-on:click="$emit('logOut')">Logout</a></span>
-          <!-- <span><a href="mailto:jaredgblumer@gmail.com@subject=Bug Report">Report Bug</a></span>
-          <span><a href="mailto:jaredgblumer@gmail.com@subject=YNAG">Contact</a></span> -->
+          <span><a href="mailto:jaredgblumer@gmail.com@subject=Bug Report">Report Bug</a></span>
+          <span><a href="mailto:jaredgblumer@gmail.com@subject=YNAG">Contact</a></span>
         </footer>
 
 
