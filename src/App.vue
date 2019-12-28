@@ -68,7 +68,7 @@ import * as axios from 'axios';
 import config from './config.js';
 
 // Import components
-import Budgets from './components/Budgets.vue';
+// import Budgets from './components/Budgets.vue';
 import Goals from './components/Goals.vue';
 import LoadGoals from './components/LoadGoals.vue';
 
@@ -143,7 +143,7 @@ export default {
       this.error = null;
       this.budgetId = "default";
       console.log('Budget ID:' + id);
-      let token = sessionStorage.getItem('ynab_access_token');
+      // let token = sessionStorage.getItem('ynab_access_token');
 
       return axios.get('/budgets/' + this.budgetId + '/categories')
         .then((res) => {
@@ -171,7 +171,7 @@ export default {
           }
         }
 
-      };
+      }
 
       tempGoalsArr = tempGoalsArr.map((goalsObj) => this.convertKeys(goalsObj));
 
@@ -268,7 +268,7 @@ export default {
 
   // Specify components available to template
   components: {
-    Budgets,
+    // Budgets,
     Goals,
     LoadGoals
   }
