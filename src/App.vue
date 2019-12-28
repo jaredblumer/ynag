@@ -33,9 +33,7 @@
             </p>
           </div>
           <div class="button-div">
-            <button class="auth" @click="authorizeWithYNAB"><span>Login
-                <!-- <i class="material-icons">security</i> -->
-              </span>
+            <button class="auth" @click="authorizeWithYNAB"><span>Login</span>
             </button>
           </div>
         </div>
