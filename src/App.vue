@@ -25,16 +25,12 @@
           <p>You have successfully logged out.</p>
         </div>
         <div class="index-body">
-          <!-- <div class="index-logo"></div> -->
           <div class="index-description">
             <p>
               <strong>You Need A Goal</strong> is a free and secure third-party widget which
               provides YNAB users with a quick, detailed overview of their
               savings goals, all in one place.
             </p>
-            <!-- <p>
-              Login securely using YNAB below!
-            </p> -->
           </div>
           <div class="button-div">
             <button class="auth" @click="authorizeWithYNAB"><span>Login
@@ -53,8 +49,6 @@
       <Goals v-else
           :goals="goals"
           @logOut="logOut" />
-
-    <!-- <Footer /> -->
 
     </div>
   </div>
@@ -76,12 +70,6 @@ export default {
   // Template data
   data () {
     return {
-      // ynab: {
-      //   clientId: config.ynab.clientId,
-      //   redirectUri: config.ynab.redirectUri,
-      //   token: null,
-      //   api: null
-      // },
       api: null,
       budgetId: 'default',
       budgets: [],
@@ -301,12 +289,6 @@ export default {
     text-transform: uppercase;
   }
 
-  /* .auth span i {
-    font-size: 20px;
-    margin: 0;
-    padding: 0;
-  } */
-
   body {
     background-color:#FEDBD0;
     color: black;
@@ -368,8 +350,6 @@ export default {
     color: #442C2E;
   }
 
-
-
   .index-header {
     margin: 16px 0;
   }
@@ -393,11 +373,5 @@ export default {
     padding: 0;
     text-transform: uppercase;
   }
-
-  /* .index-logo {
-    border: 1px solid black;
-    display: inline-block;
-    width: 25%;
-  } */
 
 </style>
