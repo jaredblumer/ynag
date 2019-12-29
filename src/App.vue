@@ -311,8 +311,10 @@ export default {
     background-color:#FEDBD0;
     color: black;
     font-family: 'Montserrat', sans-serif;
+    height: 100%;
     margin: 0;
     padding: 0;
+    width: 100%;
   }
 
   body.noScroll {
@@ -431,8 +433,8 @@ export default {
   }
 
   .modal {
-    background-color: #666e8e; /* Fallback color */
-    background-color: rgba(102,110,142,0.4);
+    background-color: #000; /* Fallback color */
+    background-color: rgba(0,0,0,0.8);
     display: none;
     left: 0;
     height: 100%;
@@ -503,7 +505,7 @@ export default {
     }
 
     .modal-content img {
-      width: 95%;
+      width: 240px;
     }
   }
 
