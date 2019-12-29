@@ -354,7 +354,7 @@ export default {
     display: flex;
     height: 100%;
     justify-content: center;
-    position: fixed;
+    position: absolute;
     width: 100%;
   }
 
@@ -480,7 +480,7 @@ export default {
 
   @media only screen and (max-width: 500px) {
     .index-container {
-      margin-bottom: 16px;
+      margin: 0;
     }
 
     .modal-close-div {
