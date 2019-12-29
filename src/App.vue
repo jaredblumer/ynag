@@ -16,59 +16,62 @@
       </div> -->
 
       <!-- If no token, ask user to authorize -->
-      <div class="index-container" v-if="!token">
-        <div class="index-header">
-          <h1>YNAG<span class="period">.</span></h1>
-          <h2>You Need A Goal</h2>
-        </div>
-        <div class="message" v-if="loggedOut">
-          <p>You have successfully logged out.</p>
-        </div>
-        <div class="index-body">
-          <div class="index-description">
-            <div class="index-description-text">
-              <p>
-                <strong>You Need A Goal</strong> is a free and secure third-party widget which
-                provides YNAB users with a quick, detailed overview of their
-                savings goals, all in one place.
-              </p>
-              <p class="privacy-policy">
-                You Need A Goal uses YNAB's authorized application interface to
-                securely transfer encrypted data directly to your browser. YNAG
-                does not store data nor request information from financial institutions.
-              </p>
+
+      <div class="index" v-if="!token">
+        <div class="index-container">
+          <div class="index-header">
+            <h1>YNAG<span class="period">.</span></h1>
+            <h2>You Need A Goal</h2>
+          </div>
+          <div class="message" v-if="loggedOut">
+            <p>You have successfully logged out.</p>
+          </div>
+          <div class="index-body">
+            <div class="index-description">
+              <div class="index-description-text">
+                <p>
+                  <strong>You Need A Goal</strong> is a free and secure third-party widget which
+                  provides YNAB users with a quick, detailed overview of their
+                  savings goals, all in one place.
+                </p>
+                <p class="privacy-policy">
+                  You Need A Goal uses YNAB's authorized application interface to
+                  securely transfer encrypted data directly to your browser. YNAG
+                  does not store data nor request information from financial institutions.
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="button-div">
-            <button @click="triggerModal">
-              <span>View App</span>
-            </button>
-            <button class="auth" @click="authorizeWithYNAB">
-              <span>Login</span>
-            </button>
-
-          </div>
-        </div>
-        <div class="index-footer">
-          <span>
-            Developed by <a href="https://github.com/jaredblumer">Jared Blumer</a>
-          </span>
-        </div>
-
-        <div id="modal" class="modal">
-          <div class="modal-content">
-            <div class="modal-close-div">
-              <button class="modal-close-button" @click="triggerModal">
-                <i id="modal-close" class="material-icons">close</i>
+            <div class="button-div">
+              <button @click="triggerModal">
+                <span>View App</span>
               </button>
-            </div>
-            <div class="modal-screenshot-div">
-              <img src="@/assets/images/screenshot.png" />
-            </div>
-            <div class="modal-button-div">
               <button class="auth" @click="authorizeWithYNAB">
                 <span>Login</span>
               </button>
+
+            </div>
+          </div>
+          <div class="index-footer">
+            <span>
+              Developed by <a href="https://github.com/jaredblumer">Jared Blumer</a>
+            </span>
+          </div>
+
+          <div id="modal" class="modal">
+            <div class="modal-content">
+              <div class="modal-close-div">
+                <button class="modal-close-button" @click="triggerModal">
+                  <i id="modal-close" class="material-icons">close</i>
+                </button>
+              </div>
+              <div class="modal-screenshot-div">
+                <img src="@/assets/images/screenshot.png" />
+              </div>
+              <div class="modal-button-div">
+                <button class="auth" @click="authorizeWithYNAB">
+                  <span>Login</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -346,6 +349,15 @@ export default {
     padding: 0;
   }
 
+  .index {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+  }
+
   .index-body {
     background-color: #FFF;
     border-radius: 0.25rem;
@@ -356,7 +368,7 @@ export default {
   }
 
   .index-container {
-    margin: 100px auto 0 auto;
+    margin: 0 auto 80px auto;
     padding: 16px;
     max-width: 600px;
   }
@@ -389,7 +401,7 @@ export default {
   }
 
   .index-header {
-    margin: 16px 0;
+    margin: 0 0 16px 0;
   }
 
   .index-header h1 {
@@ -468,7 +480,7 @@ export default {
 
   @media only screen and (max-width: 500px) {
     .index-container {
-      margin-top: 0;
+      margin-bottom: 16px;
     }
 
     .modal-close-div {
