@@ -486,6 +486,10 @@ export default {
 
   @media only screen and (max-width: 500px) {
 
+    .index {
+      display: block;
+    }
+
     .index-body {
       margin-top: 8px;
     }
