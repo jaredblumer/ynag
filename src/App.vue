@@ -26,21 +26,46 @@
         </div>
         <div class="index-body">
           <div class="index-description">
-            <p>
-              <strong>You Need A Goal</strong> is a free and secure third-party widget which
-              provides YNAB users with a quick, detailed overview of their
-              savings goals, all in one place.
-            </p>
+            <div class="index-description-text">
+              <p>
+                <strong>You Need A Goal</strong> is a free and secure third-party widget which
+                provides YNAB users with a quick, detailed overview of their
+                savings goals, all in one place.
+              </p>
+            </div>
           </div>
           <div class="button-div">
-            <button class="auth" @click="authorizeWithYNAB"><span>Login</span>
+            <button @click="triggerModal">
+              <span>View App</span>
             </button>
+            <button class="auth" @click="authorizeWithYNAB">
+              <span>Login</span>
+            </button>
+
           </div>
         </div>
         <div class="index-footer">
           <span>
             Developed by <a href="https://github.com/jaredblumer">Jared Blumer</a>
           </span>
+        </div>
+
+        <div id="modal" class="modal">
+          <div class="modal-content">
+            <div class="modal-close-div">
+              <button class="modal-close-button" @click="triggerModal">
+                <i id="modal-close" class="material-icons">close</i>
+              </button>
+            </div>
+            <div class="modal-screenshot-div">
+              <img src="@/assets/images/screenshot.png" />
+            </div>
+            <div class="modal-button-div">
+              <button class="auth" @click="authorizeWithYNAB">
+                <span>Login</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -83,9 +108,8 @@ export default {
     }
   },
 
-  // When this component is created, check whether we need a token or budgets
-  // or display the transactions
   created() {
+    // Find YNAB Token or configure axios if token found
     this.token = this.findYNABToken();
     if (this.token) {
 
@@ -248,6 +272,16 @@ export default {
       this.error = null;
       this.goals = [];
       sessionStorage.removeItem('ynab_access_token');
+    },
+
+    // Open or close modal
+    triggerModal() {
+      let modal = document.getElementById("modal");
+      if (modal.style.display != "block") {
+        modal.style.display = "block";
+      } else {
+        modal.style.display = "none";
+      }
     }
 
   },
@@ -263,7 +297,15 @@ export default {
 
 <style>
 
-  .auth {
+  body {
+    background-color:#FEDBD0;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
     background-color: #666e8e;
     border: 0;
     border-radius: 3px;
@@ -271,28 +313,21 @@ export default {
     color: white;
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
-    margin: 0;
+    margin: 0 4px 0 4px;
+    outline: 0;
     padding: 16px;
     transition: all 0.5s;
   }
 
-  .auth:hover {
+  button:hover {
     background-color: #4e567d;
   }
 
-  .auth span {
+  button span {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
-  }
-
-  body {
-    background-color:#FEDBD0;
-    color: black;
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    padding: 0;
   }
 
   .button-div {
@@ -316,7 +351,7 @@ export default {
   }
 
   .index-container {
-    margin: 10% auto 0 auto;
+    margin: 100px auto 0 auto;
     padding: 16px;
     max-width: 600px;
   }
@@ -370,6 +405,66 @@ export default {
     margin: 0 0 0 18px;
     padding: 0;
     text-transform: uppercase;
+  }
+
+  .modal {
+    background-color: #666e8e; /* Fallback color */
+    background-color: rgba(102,110,142,0.4);
+    display: none;
+    left: 0;
+    height: 100%;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .modal-button-div {
+    text-align: center;
+  }
+
+  #modal-close {
+    color: white;
+    font-size: 18px;
+  }
+
+  .modal-close-button {
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    width: 24px;
+  }
+
+  .modal-close-div {
+    margin: 0 auto;
+    text-align: right;
+    width: 500px;
+  }
+
+  .modal-content {
+    margin: 50px 0 0 0;
+  }
+
+  .modal-content img {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    width: 500px;
+  }
+
+  .modal-screenshot-div {
+    margin: 4px 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 500px) {
+    .modal-close-div {
+      width: 95%;
+    }
+
+    .modal-content img {
+      width: 95%;
+    }
   }
 
 </style>
