@@ -468,7 +468,7 @@ export default {
 
   @media only screen and (max-width: 500px) {
     .index-container {
-      margin-top: 50px;
+      margin-top: 16px;
     }
 
     .modal-close-div {
