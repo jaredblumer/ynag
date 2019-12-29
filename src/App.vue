@@ -286,8 +286,10 @@ export default {
     triggerModal() {
       let modal = document.getElementById("modal");
       if (modal.style.display != "block") {
+        document.body.classList.add("noScroll");
         modal.style.display = "block";
       } else {
+        document.body.classList.remove("noScroll");
         modal.style.display = "none";
       }
     }
@@ -311,6 +313,10 @@ export default {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
+  }
+
+  body.noScroll {
+    overflow:hidden;
   }
 
   button {
@@ -431,7 +437,7 @@ export default {
     left: 0;
     height: 100%;
     overflow: auto;
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 100%;
     z-index: 1;
@@ -460,7 +466,7 @@ export default {
   }
 
   .modal-content {
-    margin: 50px 0 0 0;
+    margin: 8px 0 0 0;
   }
 
   .modal-content img {
