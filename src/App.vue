@@ -401,7 +401,7 @@ export default {
   }
 
   .index-header {
-    margin: 0 0 16px 0;
+    margin: 0;
   }
 
   .index-header h1 {
@@ -479,6 +479,11 @@ export default {
   }
 
   @media only screen and (max-width: 500px) {
+
+    .index-body {
+      margin-top: 8px;
+    }
+
     .index-container {
       margin: 0;
     }
