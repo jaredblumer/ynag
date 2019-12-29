@@ -32,6 +32,11 @@
                 provides YNAB users with a quick, detailed overview of their
                 savings goals, all in one place.
               </p>
+              <p class="privacy-policy">
+                You Need A Goal uses YNAB's authorized application interface to
+                securely transfer encrypted data directly to your browser. YNAG
+                does not store data nor request information from financial institutions.
+              </p>
             </div>
           </div>
           <div class="button-div">
@@ -455,6 +460,10 @@ export default {
     margin: 4px 0;
     padding: 0;
     text-align: center;
+  }
+
+  .privacy-policy {
+    font-size: 12px;
   }
 
   @media only screen and (max-width: 500px) {
