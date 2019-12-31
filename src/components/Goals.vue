@@ -178,7 +178,7 @@ footer a:hover {
 }
 
 footer span {
-  margin: 0 16px;
+  margin: 0 8px;
 }
 
 .drop-down-container {
